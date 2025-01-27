@@ -16,12 +16,15 @@ import { getMovies } from './actions';
 export default function Home() {
   const router = useRouter();
   const [movies, setMovies] = useState<MovieType[]>([]);
+  const [page, setPage] = useState<number>(1);
   // const movies = getMovies();
 
   useEffect(() => {
     getMovies()
       .then((response) => {
         console.log('MOBVIES RES:', response);
+        setMovies(response.data);
+        setPage(response.meta.page);
       })
       .catch((error) => {
         console.error(error);

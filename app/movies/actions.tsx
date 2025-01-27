@@ -1,16 +1,22 @@
 // app/movies/actions.ts
 'use server';
 
-import createBrowserClient from '@/lib/supabase/client';
+import { createClient } from '@/lib/supabase/client';
+// import { createClient } from '@/lib/supabase/server';
+
 import { redirect } from 'next/navigation';
 
 // Get all movies
-export async function getMovies() {
+export async function getMovies(page = 1, pageSize = 10) {
   console.log('getMovies()');
+  const supabase = createClient();
 
-  const { data, error } = await createBrowserClient.from('movies').select('*');
+  const { data: movies, error } = await supabase
+    .from('movies')
+    .select('*')
+    .range((page - 1) * pageSize, page * pageSize - 1);
 
-  console.log('getMovies():', data);
+  console.log('getMovies():', movies);
   // const { data, error } = await supabase.from('movies').select('*').range(0,);
 
   if (error) {
@@ -18,7 +24,14 @@ export async function getMovies() {
     throw new Error(error.message);
   }
 
-  return data;
+  return {
+    data: movies,
+    meta: {
+      page: 1,
+      nextPage: '',
+      prevPage: '',
+    },
+  };
 }
 
 // Create a new movie
