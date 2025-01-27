@@ -7,7 +7,7 @@
   --error: #eb5757;
   --background: #093545;
   --foreground: #092c39;
-  --text-color: #c3c8d4;
+  --text-color: #ffffff;
   --input-color: #224957;
   --muted: #767e94;
 }
@@ -18,7 +18,7 @@
     --error: #eb5757;
     --background: #093545;
     --foreground: #092c39;
-    --text-color: #c3c8d4;
+    --text-color: #ffffff;
     --input-color: #224957;
     --muted: #767e94;
   }
