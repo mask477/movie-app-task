@@ -8,21 +8,18 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { getMovies } from './actions';
-
-// function getMovies(): MovieType[] {
-//   return MOVIES;
-// }
+import Pagination from '@/components/pagination';
 
 export default function Home() {
   const router = useRouter();
   const [movies, setMovies] = useState<MovieType[]>([]);
   const [page, setPage] = useState<number>(1);
-  // const movies = getMovies();
+  const [paginationMeta, setPaginationMeta] = useState<number>(1);
 
   useEffect(() => {
     getMovies()
       .then((response) => {
-        console.log('MOBVIES RES:', response);
+        console.log('MOVIES RES:', response);
         setMovies(response.data);
         setPage(response.meta.page);
       })
@@ -61,12 +58,7 @@ export default function Home() {
           </div>
 
           <div className="flex justify-center py-8 w-full my-8">
-            <div className="flex gap-4 ">
-              <label className="cursor-pointer">Prev</label>
-              <label className="cursor-pointer">1</label>
-              <label className="cursor-pointer">2</label>
-              <label className="cursor-pointer">Next</label>
-            </div>
+            <Pagination meta={paginationMeta} />
           </div>
         </>
       ) : (
