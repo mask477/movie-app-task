@@ -1,7 +1,13 @@
-import EditMovieForm from './components/edit-movie-form';
+'use client';
+// import EditMovieForm from './components/edit-movie-form';
 import { getMovieById } from '../../actions';
 import { ServerCrash } from 'lucide-react';
 import LinkButton from '@/components/link-button';
+import dynamic from 'next/dynamic';
+
+const EditMovieForm = dynamic(() => import('./components/edit-movie-form'), {
+  ssr: false,
+});
 
 type tParams = Promise<{ id: string }>;
 
