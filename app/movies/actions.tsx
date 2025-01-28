@@ -4,6 +4,7 @@
 import { createClient } from '@/utils/supabase/server';
 
 // Get all movies
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function getMovies(page: any = 1): Promise<
   | {
       data: Movie[];
@@ -21,6 +22,8 @@ export async function getMovies(page: any = 1): Promise<
         page = 1;
       }
     } catch (error) {
+      console.error('ERROR parsing page param:', error);
+
       page = 1;
     }
 
@@ -165,7 +168,10 @@ export async function updateMovie(
 
   const userId = (await user).data.user?.id;
 
-  let movieData: any = {
+  const movieData: Omit<Movie, 'id' | 'created_at' | 'user_id' | 'poster'> & {
+    user_id?: string;
+    poster?: string;
+  } = {
     title: data.title,
     year: data.year,
     user_id: userId, // Link the movie to the current user

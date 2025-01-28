@@ -11,6 +11,7 @@ const LogoutButton = () => {
     <Link
       href="/logout"
       className="flex items-center gap-2 font-bold text-sms cursor-pointer"
+      prefetch
     >
       <label className="text-base cursor-pointer hidden sm:block">Logout</label>
       <LogOut size={isMobile ? 24 : 32} />

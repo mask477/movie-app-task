@@ -6,7 +6,6 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import InputField from '@components/input-field';
 import Button from './button';
-import { useRouter } from 'next/navigation';
 import { login } from '@/utils/auth-actions';
 import { useToast } from '@/hooks/use-toast';
 
@@ -25,7 +24,6 @@ const signInSchema = z.object({
 type SignInFormData = z.infer<typeof signInSchema>;
 
 export default function SignInForm() {
-  const router = useRouter();
   const { toast } = useToast();
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -61,10 +59,6 @@ export default function SignInForm() {
       .finally(() => {
         setLoading(false);
       });
-  };
-
-  const onClickRegisterHandler = () => {
-    router.push('/register');
   };
 
   return (

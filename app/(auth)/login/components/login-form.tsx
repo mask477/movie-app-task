@@ -8,6 +8,7 @@ import InputField from '@components/input-field';
 import Button from '@/components/button';
 import { login } from '@/utils/auth-actions';
 import { useToast } from '@/hooks/use-toast';
+import { Checkbox } from '@/components/ui/checkbox';
 
 const signInSchema = z.object({
   email: z
@@ -47,11 +48,13 @@ export default function LoginInForm() {
     login(formData)
       .catch((error) => {
         console.error(error);
-        toast({
-          variant: 'destructive',
-          title: 'Error',
-          description: error.message,
-        });
+        if (error.message !== 'NEXT_REDIRECT') {
+          toast({
+            variant: 'destructive',
+            title: 'Error',
+            description: error.message,
+          });
+        }
       })
       .finally(() => {
         setLoading(false);
@@ -81,6 +84,16 @@ export default function LoginInForm() {
           placeholder="Password"
           disabled={loading}
         />
+
+        <div className="flex items-center justify-center space-x-2 mb-6">
+          <Checkbox id="terms" />
+          <label
+            htmlFor="terms"
+            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+          >
+            Remember me
+          </label>
+        </div>
 
         {/* Submit Button */}
         <Button type="submit" className="w-full" disabled={loading}>

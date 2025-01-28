@@ -5,7 +5,9 @@ import { Montserrat } from 'next/font/google';
 import BgWaves from '@/components/bg-waves';
 import { Toaster } from '@/components/ui/toaster';
 
-const montserrat = Montserrat();
+const montserrat = Montserrat({
+  preload: false,
+});
 
 export const metadata: Metadata = {
   title: 'Upwork Nextjs Task',

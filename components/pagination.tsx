@@ -16,12 +16,12 @@ export default function Pagination({ meta }: { meta: PaginationMeta }) {
     <div className="flex items-center justify-center gap-4">
       <Link
         href={page - 1 > 0 ? `/movies?page=${page - 1}` : '#'}
+        prefetch
         className={cn([
           ' text-base',
           page <= 1 ? 'text-muted cursor-default' : 'text-base',
         ])}
         aria-disabled={page <= 1}
-        prefetch
       >
         Prev
       </Link>
@@ -49,6 +49,7 @@ export default function Pagination({ meta }: { meta: PaginationMeta }) {
       <Link
         href={page + 1 <= totalPages ? `/movies?page=${page + 1}` : '#'}
         aria-disabled={page === totalPages}
+        prefetch
         className={cn([
           ' text-base',
           page === totalPages ? 'text-muted cursor-default' : 'text-base',

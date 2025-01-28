@@ -1,8 +1,8 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import InputField from '@/components/input-field';
-import { useForm, UseFormSetValue } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import Button from '@/components/button';
 import { ImageField } from '@/components/image-field';
@@ -39,17 +39,12 @@ export default function EditMovieForm({ movie }: { movie: Movie }) {
   const router = useRouter();
 
   const [loading, setLoading] = useState<boolean>(false);
-  useEffect(() => {
-    console.log('isMobile', isMobile);
-  }, []);
 
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
     setValue,
-    getValues,
   } = useForm<EditMovieFormData>({
     resolver: zodResolver(editMovieSchema),
     defaultValues: {
@@ -101,9 +96,10 @@ export default function EditMovieForm({ movie }: { movie: Movie }) {
             {...register('poster')}
             error={errors.poster?.message}
             disabled={loading}
-            setValue={(name, value, params) =>
-              setValue(name, value as unknown as any, params)
-            }
+            setValue={(name, value, params) => {
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              setValue(name, value as unknown as any, params);
+            }}
             defaultValue={movie.poster}
           />
         </div>
@@ -128,7 +124,12 @@ export default function EditMovieForm({ movie }: { movie: Movie }) {
 
           {isMobile !== undefined && !isMobile && (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
-              <LinkButton href="/movies" variant="outline" disabled={loading}>
+              <LinkButton
+                href="/movies"
+                variant="outline"
+                disabled={loading}
+                prefetch
+              >
                 Cancel
               </LinkButton>
               <Button disabled={loading}>
@@ -140,7 +141,12 @@ export default function EditMovieForm({ movie }: { movie: Movie }) {
         </div>
         {isMobile !== undefined && isMobile && (
           <div className="order-3 grid grid-cols-2 gap-4 mt-8">
-            <LinkButton href="/movies" variant="outline" disabled={loading}>
+            <LinkButton
+              href="/movies"
+              variant="outline"
+              disabled={loading}
+              prefetch
+            >
               Cancel
             </LinkButton>
             <Button disabled={loading}>

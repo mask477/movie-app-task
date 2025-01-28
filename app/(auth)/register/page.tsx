@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Button from '@/components/button';
 import SignUpForm from './components/sign-up-form';
 import LinkButton from '@/components/link-button';
 

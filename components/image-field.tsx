@@ -1,13 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { X } from 'lucide-react';
 import Image from 'next/image';
-import React, {
-  MouseEvent,
-  SyntheticEvent,
-  useCallback,
-  useState,
-} from 'react';
-import { Accept, useDropzone } from 'react-dropzone';
+import React, { useState } from 'react';
+import { useDropzone } from 'react-dropzone';
 import { UseFormRegisterReturn, UseFormSetValue } from 'react-hook-form';
 
 export function ImageField({

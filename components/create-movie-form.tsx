@@ -3,7 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import React, { useEffect, useState } from 'react';
 import InputField from './input-field';
 import { useForm } from 'react-hook-form';
-import { setErrorMap, z } from 'zod';
+import { z } from 'zod';
 import Button from './button';
 import { ImageField } from './image-field';
 import { createMovie } from '@/app/movies/actions';

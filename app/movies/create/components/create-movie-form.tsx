@@ -1,6 +1,6 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import InputField from '@/components/input-field';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -39,14 +39,9 @@ export default function CreateMovieForm() {
 
   const [loading, setLoading] = useState<boolean>(false);
 
-  useEffect(() => {
-    console.log('isMobile', isMobile);
-  }, []);
-
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
     setValue,
     getValues,
@@ -131,7 +126,12 @@ export default function CreateMovieForm() {
         </div>
         {isMobile !== undefined && isMobile && (
           <div className="order-3 grid grid-cols-2 gap-4 mt-8">
-            <LinkButton href="/movies" variant="outline" disabled={loading}>
+            <LinkButton
+              href="/movies"
+              variant="outline"
+              disabled={loading}
+              prefetch
+            >
               Cancel
             </LinkButton>
             <Button disabled={loading}>

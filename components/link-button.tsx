@@ -1,7 +1,6 @@
 import { cn } from '@/utils/functions';
 import Link, { LinkProps } from 'next/link';
-import React, { AnchorHTMLAttributes, PropsWithChildren } from 'react';
-import { Url } from 'url';
+import React, { AnchorHTMLAttributes } from 'react';
 
 type LinkButtonProps = LinkProps &
   Omit<AnchorHTMLAttributes<HTMLAnchorElement>, keyof LinkProps> & {
@@ -29,6 +28,7 @@ export default function LinkButton({
         disabled ? 'opacity-50' : '',
         className,
       ])}
+      prefetch
       {...props}
     >
       {children}

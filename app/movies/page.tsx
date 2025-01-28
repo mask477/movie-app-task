@@ -8,7 +8,6 @@ import { useEffect, useState } from 'react';
 import { getMovies } from './actions';
 import Pagination from '@/components/pagination';
 import LogoutButton from '@/components/logout-button';
-import LinkButton from '@/components/link-button';
 import Link from 'next/link';
 import MoviesSkeleton from '@/components/movies-skeleton';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -19,7 +18,6 @@ export default function Home() {
   const router = useRouter();
   const [loading, setLoading] = useState<boolean>(true);
   const [movies, setMovies] = useState<Movie[]>([]);
-  // const [page, setPage] = useState<number>(1);
   const [paginationMeta, setPaginationMeta] = useState<PaginationMeta>({
     page: 1,
     limit: 10,
@@ -34,8 +32,10 @@ export default function Home() {
     getMovies(pageParam)
       .then((response) => {
         console.log('MOVIES RES:', response);
-        setMovies(response ? response.data : []);
-        setPaginationMeta(response.meta);
+        if ('data' in response) {
+          setMovies(response ? response.data : []);
+          setPaginationMeta(response.meta);
+        }
       })
       .catch((error) => {
         console.error(error);
@@ -58,7 +58,7 @@ export default function Home() {
           <div className="flex flex-wrap justify-between w-full">
             <div className="flex items-center gap-4 font-bold">
               <h1 className="text-h3 sm:text-h2">My movies</h1>
-              <Link href="/movies/create">
+              <Link href="/movies/create" prefetch>
                 <CirclePlus size={isMobile ? 24 : 32} />
               </Link>
             </div>

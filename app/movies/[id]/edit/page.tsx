@@ -3,12 +3,10 @@ import { getMovieById } from '../../actions';
 import { ServerCrash } from 'lucide-react';
 import LinkButton from '@/components/link-button';
 
-export default async function EditMoviePage({
-  params,
-}: {
-  params: { id: string };
-}) {
-  const { id } = await params;
+type tParams = Promise<{ id: string }>;
+
+export default async function EditMoviePage(props: { params: tParams }) {
+  const { id } = await props.params;
 
   const movie = await getMovieById(id);
 
@@ -21,7 +19,7 @@ export default async function EditMoviePage({
             <h3 className="text-h3">Oops!</h3>
             <p className="text-base">Something went wrong!</p>
           </div>
-          <LinkButton href="/movies" className="w-full">
+          <LinkButton href="/movies" className="w-full" prefetch>
             Back
           </LinkButton>
         </div>
