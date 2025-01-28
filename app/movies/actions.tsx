@@ -190,7 +190,7 @@ export async function updateMovie(
 
     // TODO: need to Delete the old file
 
-    movieData.posterUrl = storageData.publicUrl;
+    movieData.poster = storageData.publicUrl;
   }
 
   const { error: updateError } = await supabase
