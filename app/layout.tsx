@@ -24,14 +24,15 @@ export default function RootLayout({
       <body className={montserrat.className}>
         <div
           className={
-            'grid items-center justify-items-center min-h-screen py-[50] sm:py-[120] relative '
+            'grid items-center justify-items-center min-h-screen py-[50px] sm:py-[120px] pb-[50px] relative '
           }
         >
-          <main className="container">{children}</main>
-
-          <div className="w-full absolute bottom-0 left-0 right-0">
-            <BgWaves className="w-full h-auto" />
-          </div>
+          <main className="container">
+            {children}
+            <div className="w-full absolute bottom-0 left-0 right-0">
+              <BgWaves className="w-full h-auto" />
+            </div>
+          </main>
         </div>
         <Toaster />
       </body>

@@ -46,6 +46,15 @@ export default function LoginInForm() {
     setLoading(true);
 
     login(formData)
+      .then((response) => {
+        if ('error' in response) {
+          toast({
+            variant: 'destructive',
+            title: 'Error',
+            description: response.error,
+          });
+        }
+      })
       .catch((error) => {
         console.error(error);
         if (error.message !== 'NEXT_REDIRECT') {

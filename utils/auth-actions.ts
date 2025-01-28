@@ -17,7 +17,9 @@ export async function login(formData: FormData) {
 
   if (error) {
     // return { error: error.message };
-    throw new Error(error?.message);
+    // throw new Error(error?.message);
+
+    return { error: error?.message };
     // redirect('/error');
   }
 
