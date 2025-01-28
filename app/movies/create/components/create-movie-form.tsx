@@ -1,4 +1,5 @@
 'use client';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 import React, { useState } from 'react';
 import InputField from '@/components/input-field';
@@ -15,7 +16,7 @@ import LinkButton from '@/components/link-button';
 
 const createMovieSchema = z.object({
   poster: z
-    .instanceof(File) // Ensure the input is a file list (the value of a file input)
+    .instanceof(File) // Ensure the input is a file (the value of a file input)
     .refine((file) => file.type.startsWith('image/'), {
       message: 'Please upload a valid image.',
     })
@@ -114,9 +115,14 @@ export default function CreateMovieForm() {
 
           {isMobile !== undefined && !isMobile && (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
-              <Button variant="outline" disabled={loading}>
+              <LinkButton
+                href="/movies"
+                variant="outline"
+                disabled={loading}
+                prefetch
+              >
                 Cancel
-              </Button>
+              </LinkButton>
               <Button disabled={loading}>
                 {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 Submit
@@ -130,6 +136,7 @@ export default function CreateMovieForm() {
               href="/movies"
               variant="outline"
               disabled={loading}
+              type="button"
               prefetch
             >
               Cancel

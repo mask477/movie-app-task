@@ -127,6 +127,7 @@ export default function EditMovieForm({ movie }: { movie: Movie }) {
               <LinkButton
                 href="/movies"
                 variant="outline"
+                type="button"
                 disabled={loading}
                 prefetch
               >
@@ -144,6 +145,7 @@ export default function EditMovieForm({ movie }: { movie: Movie }) {
             <LinkButton
               href="/movies"
               variant="outline"
+              type="button"
               disabled={loading}
               prefetch
             >
