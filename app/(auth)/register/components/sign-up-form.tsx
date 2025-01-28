@@ -5,12 +5,12 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import InputField from '@components/input-field';
-import Button from './button';
-import { useRouter } from 'next/navigation';
-import { login } from '@/utils/auth-actions';
+import Button from '@/components/button';
+import { signup } from '@/utils/auth-actions';
 import { useToast } from '@/hooks/use-toast';
+import { useRouter } from 'next/navigation';
 
-const signInSchema = z.object({
+const signUpSchema = z.object({
   email: z
     .string()
     .email('Invalid email address')
@@ -22,11 +22,12 @@ const signInSchema = z.object({
   // rememberMe: z.any(),
 });
 
-type SignInFormData = z.infer<typeof signInSchema>;
+type SignUpFormData = z.infer<typeof signUpSchema>;
 
-export default function SignInForm() {
-  const router = useRouter();
+export default function SignUpForm() {
   const { toast } = useToast();
+  const router = useRouter();
+
   const [loading, setLoading] = useState<boolean>(false);
 
   const {
@@ -34,24 +35,37 @@ export default function SignInForm() {
     handleSubmit,
     setError,
     formState: { errors },
-  } = useForm<SignInFormData>({
-    resolver: zodResolver(signInSchema),
+  } = useForm<SignUpFormData>({
+    resolver: zodResolver(signUpSchema),
   });
 
-  const onSubmitHandler = (data: SignInFormData) => {
-    console.log('Form Submitted:', data);
+  const onSubmitHandler = async (data: SignUpFormData) => {
+    setLoading(true);
 
     const formData = new FormData();
 
     formData.append('email', data.email);
     formData.append('password', data.password);
 
-    setLoading(true);
+    signup(formData)
+      .then((response) => {
+        console.log('RESPONSE:', response);
+        if (response.error) {
+          console.error(response.error);
 
-    login(formData)
+          setError('email', { message: response.error });
+        }
+        toast({
+          variant: 'default',
+          title: 'Registration Successful',
+          description:
+            'We have sent you a verification link on the registered email address..',
+        });
+        router.replace('/login');
+      })
       .catch((error) => {
-        setError('email', { message: error.message });
         console.error(error);
+        setError('email', { message: error.message });
         toast({
           variant: 'destructive',
           title: 'Error',
@@ -61,10 +75,6 @@ export default function SignInForm() {
       .finally(() => {
         setLoading(false);
       });
-  };
-
-  const onClickRegisterHandler = () => {
-    router.push('/register');
   };
 
   return (
@@ -91,11 +101,9 @@ export default function SignInForm() {
           disabled={loading}
         />
 
-        {/* {!!error && <p className="text-error">{error}</p>} */}
-
         {/* Submit Button */}
         <Button type="submit" className="w-full" disabled={loading}>
-          Login
+          Register
         </Button>
       </div>
     </form>

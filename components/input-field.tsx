@@ -1,4 +1,4 @@
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils/functions';
 import React, { DetailedHTMLProps, InputHTMLAttributes } from 'react';
 
 type InputFieldProps = DetailedHTMLProps<

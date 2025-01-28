@@ -1,5 +1,5 @@
 'use client';
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils/functions';
 import React, { HTMLAttributes, PropsWithChildren } from 'react';
 
 function Card({
@@ -8,14 +8,28 @@ function Card({
   ...props
 }: PropsWithChildren<HTMLAttributes<HTMLDivElement>>) {
   return (
-    <div className={cn(['bg-foreground rounded-xl p-2', className])} {...props}>
+    <div
+      className={cn([
+        'bg-foreground rounded-xl p-2 overflow-hidden',
+        className,
+      ])}
+      {...props}
+    >
       {children}
     </div>
   );
 }
 
-function CardBody({ children }: PropsWithChildren) {
-  return <div className="px-2 py-2">{children}</div>;
+function CardBody({
+  children,
+  className,
+  ...props
+}: PropsWithChildren<HTMLAttributes<HTMLDivElement>>) {
+  return (
+    <div className={cn(['px-2 py-2 bg-foreground', className])} {...props}>
+      {children}
+    </div>
+  );
 }
 
 export { Card, CardBody };

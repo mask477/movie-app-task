@@ -8,6 +8,7 @@ import Button from './button';
 import { ImageField } from './image-field';
 import { createMovie } from '@/app/movies/actions';
 import { Loader2 } from 'lucide-react';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const createMovieSchema = z.object({
   poster: z
@@ -28,7 +29,8 @@ const createMovieSchema = z.object({
 
 type CreateMovieFormData = z.infer<typeof createMovieSchema>;
 
-export default function MovieForm() {
+export default function CreateMovieForm() {
+  const isMobile = useIsMobile();
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -72,13 +74,13 @@ export default function MovieForm() {
 
   return (
     <div className="w-full">
-      <h1 className="text-h2 mb-10">Create a new movie</h1>
+      <h1 className="text-h2 mb-20">Create a new movie</h1>
 
       <form
         onSubmit={handleSubmit(onSubmitHandler)}
         className="grid grid-cols-1 sm:grid-cols-2 gap-4"
       >
-        <div className="w-full sm:max-w-md">
+        <div className="w-full order-2 sm:order-1 sm:max-w-md">
           <ImageField
             {...register('poster')}
             error={errors.poster?.message}
@@ -86,7 +88,7 @@ export default function MovieForm() {
             setValue={setValue}
           />
         </div>
-        <div className="flex flex-col gap-2">
+        <div className="flex order-1 sm:order-2 flex-col gap-2">
           <InputField
             {...register('title')}
             error={errors.title?.message}
@@ -106,7 +108,20 @@ export default function MovieForm() {
           </div>
 
           {!!error && <p className="text-error">{error}</p>}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
+          {!isMobile && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
+              <Button variant="outline" disabled={loading}>
+                Cancel
+              </Button>
+              <Button disabled={loading}>
+                {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                Submit
+              </Button>
+            </div>
+          )}
+        </div>
+        {isMobile && (
+          <div className="order-3 grid grid-cols-2 gap-4 mt-8">
             <Button variant="outline" disabled={loading}>
               Cancel
             </Button>
@@ -115,7 +130,7 @@ export default function MovieForm() {
               Submit
             </Button>
           </div>
-        </div>
+        )}
       </form>
     </div>
   );

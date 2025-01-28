@@ -5,10 +5,10 @@
 :root {
   --primary: #2bd17e;
   --error: #eb5757;
-  --background: #093545;
-  --foreground: #092c39;
   --text-color: #ffffff;
   --input-color: #224957;
+  --background: #093545;
+  --foreground: #092c39;
   --muted: #767e94;
 }
 
@@ -16,16 +16,22 @@
   :root {
     --primary: #2bd17e;
     --error: #eb5757;
-    --background: #093545;
-    --foreground: #092c39;
     --text-color: #ffffff;
     --input-color: #224957;
+    --background: #093545;
+    --foreground: #092c39;
     --muted: #767e94;
   }
 }
 
 body {
   color: var(--text-color);
-  background: var(--background);
+  background-color: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+  }
 }

@@ -11,16 +11,24 @@ import { Accept, useDropzone } from 'react-dropzone';
 import { UseFormRegisterReturn, UseFormSetValue } from 'react-hook-form';
 
 export function ImageField({
+  defaultValue,
   error,
   disabled,
   setValue,
 }: // ...props
 UseFormRegisterReturn & {
+  defaultValue?: string;
   error?: string;
   disabled: boolean;
-  setValue: UseFormSetValue<{ poster: File; title: string; year: number }>;
+  setValue: UseFormSetValue<{
+    poster: File;
+    title: string;
+    year: number;
+  }>;
 }) {
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(
+    defaultValue ? defaultValue : null
+  );
 
   // Handle image drop and update form
   const handleDrop = (acceptedFiles: File[]) => {
@@ -37,7 +45,11 @@ UseFormRegisterReturn & {
   // Dropzone configuration
   const { getRootProps, getInputProps } = useDropzone({
     onDrop: handleDrop,
-    accept: 'image/*' as unknown as Accept,
+    accept: {
+      'image/png': ['.png'],
+      'image/jpg': ['.jpg'],
+      'image/jpeg': ['.jpeg'],
+    },
     disabled: disabled,
   });
 
@@ -67,6 +79,7 @@ UseFormRegisterReturn & {
             className="w-full h-full object-cover rounded-lg"
             width={300}
             height={300}
+            priority
           />
         )}
       </div>

@@ -2,31 +2,48 @@
 
 import Button from '@/components/button';
 import Movie from '@/components/movie';
-import { MovieType } from '@/lib/constants';
-import { CirclePlus, LogOut } from 'lucide-react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { CirclePlus } from 'lucide-react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { getMovies } from './actions';
 import Pagination from '@/components/pagination';
+import LogoutButton from '@/components/logout-button';
+import LinkButton from '@/components/link-button';
+import Link from 'next/link';
+import MoviesSkeleton from '@/components/movies-skeleton';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 export default function Home() {
+  const isMobile = useIsMobile();
+
   const router = useRouter();
-  const [movies, setMovies] = useState<MovieType[]>([]);
-  const [page, setPage] = useState<number>(1);
-  const [paginationMeta, setPaginationMeta] = useState<number>(1);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [movies, setMovies] = useState<Movie[]>([]);
+  // const [page, setPage] = useState<number>(1);
+  const [paginationMeta, setPaginationMeta] = useState<PaginationMeta>({
+    page: 1,
+    limit: 10,
+    total: 10,
+    totalPages: 1,
+  });
+  const searchParams = useSearchParams();
+  const pageParam = searchParams.get('page');
 
   useEffect(() => {
-    getMovies()
+    setLoading(true);
+    getMovies(pageParam)
       .then((response) => {
         console.log('MOVIES RES:', response);
-        setMovies(response.data);
-        setPage(response.meta.page);
+        setMovies(response ? response.data : []);
+        setPaginationMeta(response.meta);
       })
       .catch((error) => {
         console.error(error);
+      })
+      .finally(() => {
+        setLoading(false);
       });
-  }, []);
+  }, [pageParam]);
 
   const onClickAddMovie = () => {
     router.push('/movies/create');
@@ -34,24 +51,22 @@ export default function Home() {
 
   return (
     <div className="grid gap-16">
-      {movies.length ? (
+      {loading ? (
+        <MoviesSkeleton />
+      ) : movies.length ? (
         <>
           <div className="flex flex-wrap justify-between w-full">
             <div className="flex items-center gap-4 font-bold">
-              <h1 className="text-h2">My movies</h1>
-              <CirclePlus size={32} />
+              <h1 className="text-h3 sm:text-h2">My movies</h1>
+              <Link href="/movies/create">
+                <CirclePlus size={isMobile ? 24 : 32} />
+              </Link>
             </div>
 
-            <Link
-              href={'/sign-in'}
-              className="flex items-center gap-2 font-bold text-sm"
-            >
-              <label className="text-base">Logout</label>
-              <LogOut size={32} />
-            </Link>
+            <LogoutButton />
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3  md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-8 gap-x-4 sm:gap-4">
             {movies.map((movie) => (
               <Movie key={movie.id} {...movie} />
             ))}

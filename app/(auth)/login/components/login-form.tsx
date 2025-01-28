@@ -5,8 +5,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import InputField from '@components/input-field';
-import Button from './button';
-import { useRouter } from 'next/navigation';
+import Button from '@/components/button';
 import { login } from '@/utils/auth-actions';
 import { useToast } from '@/hooks/use-toast';
 
@@ -19,24 +18,21 @@ const signInSchema = z.object({
     .string()
     .min(6, 'Password must be at least 6 characters long')
     .nonempty('Password is required'),
-  // rememberMe: z.any(),
 });
 
 type SignInFormData = z.infer<typeof signInSchema>;
 
-export default function SignInForm() {
-  const router = useRouter();
-  const { toast } = useToast();
+export default function LoginInForm() {
   const [loading, setLoading] = useState<boolean>(false);
 
   const {
     register,
     handleSubmit,
-    setError,
     formState: { errors },
   } = useForm<SignInFormData>({
     resolver: zodResolver(signInSchema),
   });
+  const { toast } = useToast();
 
   const onSubmitHandler = (data: SignInFormData) => {
     console.log('Form Submitted:', data);
@@ -50,7 +46,6 @@ export default function SignInForm() {
 
     login(formData)
       .catch((error) => {
-        setError('email', { message: error.message });
         console.error(error);
         toast({
           variant: 'destructive',
@@ -61,10 +56,6 @@ export default function SignInForm() {
       .finally(() => {
         setLoading(false);
       });
-  };
-
-  const onClickRegisterHandler = () => {
-    router.push('/register');
   };
 
   return (
@@ -90,8 +81,6 @@ export default function SignInForm() {
           placeholder="Password"
           disabled={loading}
         />
-
-        {/* {!!error && <p className="text-error">{error}</p>} */}
 
         {/* Submit Button */}
         <Button type="submit" className="w-full" disabled={loading}>

@@ -1,6 +1,7 @@
 import type { Config } from 'tailwindcss';
 
 export default {
+  darkMode: ['class'],
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -21,31 +22,102 @@ export default {
         DEFAULT: 'var(--primary)',
       },
       fontSize: {
-        base: ['16px', { lineHeight: '24px', fontWeight: '500' }],
-        xs: ['12px', { lineHeight: '24px', fontWeight: '500' }],
-        sm: ['14px', { lineHeight: '24px', fontWeight: '500' }],
-        md: ['16px', { lineHeight: '24px', fontWeight: '500' }],
-        lg: ['20px', { lineHeight: '32px', fontWeight: '500' }],
-        h6: ['16px', { lineHeight: '24px', fontWeight: '800' }],
-        h5: ['20px', { lineHeight: '24px', fontWeight: '800' }],
-        h4: ['24px', { lineHeight: '32px', fontWeight: '800' }],
-        h3: ['32px', { lineHeight: '40px', fontWeight: '600' }],
-        h2: ['48px', { lineHeight: '56px', fontWeight: '600' }],
-        h1: ['64px', { lineHeight: '80px', fontWeight: '600' }],
+        base: [
+          '16px',
+          {
+            lineHeight: '24px',
+            fontWeight: '700',
+          },
+        ],
+        xs: [
+          '12px',
+          {
+            lineHeight: '24px',
+            fontWeight: '500',
+          },
+        ],
+        sm: [
+          '14px',
+          {
+            lineHeight: '24px',
+            fontWeight: '500',
+          },
+        ],
+        md: [
+          '16px',
+          {
+            lineHeight: '24px',
+            fontWeight: '500',
+          },
+        ],
+        lg: [
+          '20px',
+          {
+            lineHeight: '32px',
+            fontWeight: '500',
+          },
+        ],
+        h6: [
+          '16px',
+          {
+            lineHeight: '24px',
+            fontWeight: '800',
+          },
+        ],
+        h5: [
+          '20px',
+          {
+            lineHeight: '24px',
+            fontWeight: '800',
+          },
+        ],
+        h4: [
+          '24px',
+          {
+            lineHeight: '32px',
+            fontWeight: '800',
+          },
+        ],
+        h3: [
+          '32px',
+          {
+            lineHeight: '40px',
+            fontWeight: '600',
+          },
+        ],
+        h2: [
+          '48px',
+          {
+            lineHeight: '56px',
+            fontWeight: '600',
+          },
+        ],
+        h1: [
+          '64px',
+          {
+            lineHeight: '80px',
+            fontWeight: '600',
+          },
+        ],
       },
       container: {
-        center: true, // Centers the container
-        padding: '1rem', // Adds padding to the container
+        center: true,
+        padding: '1rem',
         screens: {
-          sm: '540px', // Similar to Bootstrap's container-sm
-          md: '720px', // Similar to Bootstrap's container-md
-          lg: '960px', // Similar to Bootstrap's container-lg
-          xl: '1140px', // Similar to Bootstrap's container-xl
-          '2xl': '1320px', // Matches Bootstrap 5's container-xxl
+          sm: '540px',
+          md: '720px',
+          lg: '960px',
+          xl: '1140px',
+          '2xl': '1320px',
         },
+      },
+      borderRadius: {
+        lg: 'var(--radius)',
+        md: 'calc(var(--radius) - 2px)',
+        sm: 'calc(var(--radius) - 4px)',
       },
     },
   },
 
-  plugins: [],
+  plugins: [require('tailwindcss-animate')],
 } satisfies Config;

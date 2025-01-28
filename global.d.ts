@@ -1,11 +1,15 @@
-type PaginationLink = {
-  label: string;
-  url: string;
+type PaginationMeta = {
+  page: number;
+  limit: number;
+  total: number;
+  totalPages: number;
 };
 
-type PaginationMeta = {
-  pages: number;
-  links: PaginationLink[];
-  nextPage: PaginationLink | null;
-  prevPage: PaginationLink | null;
+type Movie = {
+  id: string;
+  poster: string;
+  title: string;
+  year: number;
+  created_at: Date;
+  user_id: string;
 };

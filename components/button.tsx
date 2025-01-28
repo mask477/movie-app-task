@@ -1,5 +1,5 @@
 'use client';
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils/functions';
 import React, { ButtonHTMLAttributes, DetailedHTMLProps } from 'react';
 
 export default function Button({
@@ -20,7 +20,7 @@ export default function Button({
         'p-4 rounded-[10px] text-white font-md font-bold  transition flex justify-center items-center',
         variant === 'primary'
           ? 'bg-primary hover:bg-primary-400'
-          : 'border-primary border-2 hover:bg-primary-400 text-primary hover:text-white hover:bg-primary',
+          : 'border-muted border-2 hover:bg-primary-400 text-white hover:text-white hover:bg-primary',
         disabled ? 'opacity-50' : '',
         className,
       ])}
