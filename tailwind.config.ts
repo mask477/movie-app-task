@@ -14,6 +14,7 @@ export default {
         error: 'var(--error)',
         background: 'var(--background)',
         foreground: 'var(--foreground)',
+        'foreground-focus': 'var(--foreground-focus)',
         textColor: 'var(--text-color)',
         input: 'var(--input-color)',
         muted: 'var(--muted)',
@@ -119,5 +120,6 @@ export default {
     },
   },
 
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   plugins: [require('tailwindcss-animate')],
 } satisfies Config;

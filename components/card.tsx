@@ -26,7 +26,7 @@ function CardBody({
   ...props
 }: PropsWithChildren<HTMLAttributes<HTMLDivElement>>) {
   return (
-    <div className={cn(['px-2 py-2 bg-foreground', className])} {...props}>
+    <div className={cn(['px-2 py-2 ', className])} {...props}>
       {children}
     </div>
   );

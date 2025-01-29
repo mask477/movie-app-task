@@ -1,13 +1,9 @@
-// import EditMovieForm from './components/edit-movie-form';
 import { getMovieById } from '../../actions';
 import { ServerCrash } from 'lucide-react';
 import LinkButton from '@/components/link-button';
 import EditMovieForm from './components/edit-movie-form';
-// import dynamic from 'next/dynamic';
-
-// const EditMovieForm = dynamic(() => import('./components/edit-movie-form'), {
-//   ssr: false,
-// });
+import { Suspense } from 'react';
+import EditFormSkeleton from './components/edit-form-skeleton';
 
 type tParams = Promise<{ id: string }>;
 
@@ -35,7 +31,9 @@ export default async function EditMoviePage(props: { params: tParams }) {
 
   return (
     <div className="w-full">
-      <EditMovieForm movie={movie} />
+      <Suspense fallback={<EditFormSkeleton />}>
+        <EditMovieForm movie={movie} />
+      </Suspense>
     </div>
   );
 }

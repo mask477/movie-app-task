@@ -9,6 +9,7 @@
   --input-color: #224957;
   --background: #093545;
   --foreground: #092c39;
+  --foreground-focus: #19404e8c;
   --muted: #767e94;
 }
 
@@ -20,6 +21,7 @@
     --input-color: #224957;
     --background: #093545;
     --foreground: #092c39;
+    --foreground-focus: #19404e8c;
     --muted: #767e94;
   }
 }

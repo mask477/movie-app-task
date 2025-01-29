@@ -1,4 +1,5 @@
 'use client';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 import React, { useState } from 'react';
 import InputField from '@/components/input-field';
@@ -8,7 +9,6 @@ import Button from '@/components/button';
 import { ImageField } from '@/components/image-field';
 import { updateMovie } from '@/app/movies/actions';
 import { Loader2 } from 'lucide-react';
-import { useIsMobile } from '@/hooks/use-mobile';
 import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
 import LinkButton from '@/components/link-button';
@@ -34,7 +34,6 @@ const editMovieSchema = z.object({
 type EditMovieFormData = z.infer<typeof editMovieSchema>;
 
 export default function EditMovieForm({ movie }: { movie: Movie }) {
-  const isMobile = useIsMobile();
   const { toast } = useToast();
   const router = useRouter();
 
@@ -110,6 +109,7 @@ export default function EditMovieForm({ movie }: { movie: Movie }) {
             type="text"
             placeholder="Title"
             disabled={loading}
+            defaultValue={movie.title}
           />
 
           <div className="sm:max-w-xs w-full">
@@ -119,29 +119,11 @@ export default function EditMovieForm({ movie }: { movie: Movie }) {
               type="number"
               placeholder="Publishing Year"
               disabled={loading}
+              defaultValue={movie.year}
             />
           </div>
 
-          {isMobile !== undefined && !isMobile && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
-              <LinkButton
-                href="/movies"
-                variant="outline"
-                type="button"
-                disabled={loading}
-                prefetch
-              >
-                Cancel
-              </LinkButton>
-              <Button disabled={loading}>
-                {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                Submit
-              </Button>
-            </div>
-          )}
-        </div>
-        {isMobile !== undefined && isMobile && (
-          <div className="order-3 grid grid-cols-2 gap-4 mt-8">
+          <div className="hidden sm:grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8 ">
             <LinkButton
               href="/movies"
               variant="outline"
@@ -156,7 +138,22 @@ export default function EditMovieForm({ movie }: { movie: Movie }) {
               Submit
             </Button>
           </div>
-        )}
+        </div>
+        <div className="order-3 grid grid-cols-2 gap-4 mt-8 sm:hidden">
+          <LinkButton
+            href="/movies"
+            variant="outline"
+            type="button"
+            disabled={loading}
+            prefetch
+          >
+            Cancel
+          </LinkButton>
+          <Button disabled={loading}>
+            {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            Submit
+          </Button>
+        </div>
       </form>
     </div>
   );

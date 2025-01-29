@@ -9,7 +9,6 @@ import Button from '@/components/button';
 import { ImageField } from '@/components/image-field';
 import { createMovie } from '@/app/movies/actions';
 import { Loader2 } from 'lucide-react';
-import { useIsMobile } from '@/hooks/use-mobile';
 import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
 import LinkButton from '@/components/link-button';
@@ -34,7 +33,6 @@ const createMovieSchema = z.object({
 type CreateMovieFormData = z.infer<typeof createMovieSchema>;
 
 export default function CreateMovieForm() {
-  const isMobile = useIsMobile();
   const { toast } = useToast();
   const router = useRouter();
 
@@ -113,30 +111,11 @@ export default function CreateMovieForm() {
             />
           </div>
 
-          {isMobile !== undefined && !isMobile && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
-              <LinkButton
-                href="/movies"
-                variant="outline"
-                disabled={loading}
-                prefetch
-              >
-                Cancel
-              </LinkButton>
-              <Button disabled={loading}>
-                {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                Submit
-              </Button>
-            </div>
-          )}
-        </div>
-        {isMobile !== undefined && isMobile && (
-          <div className="order-3 grid grid-cols-2 gap-4 mt-8">
+          <div className="hidden sm:grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8 ">
             <LinkButton
               href="/movies"
               variant="outline"
               disabled={loading}
-              type="button"
               prefetch
             >
               Cancel
@@ -146,7 +125,22 @@ export default function CreateMovieForm() {
               Submit
             </Button>
           </div>
-        )}
+        </div>
+        <div className="order-3 grid grid-cols-2 gap-4 mt-8 sm:hidden">
+          <LinkButton
+            href="/movies"
+            variant="outline"
+            disabled={loading}
+            type="button"
+            prefetch
+          >
+            Cancel
+          </LinkButton>
+          <Button disabled={loading}>
+            {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            Submit
+          </Button>
+        </div>
       </form>
     </div>
   );
