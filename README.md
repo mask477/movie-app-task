@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# React / NextJS Full Stack Developer Assignment
 
-## Getting Started
+## Overview
 
-First, run the development server:
+This repository contains a full-stack movie database web application built using **Next.js** and **Supabase**. The app allows users to authenticate, view, create, and edit movies, following the provided Figma design specifications.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Authentication**: Handled using **Supabase Auth**.
+- **Database & Storage**: Managed with **Supabase**.
+- **Server-Side Rendering (SSR)**: Implemented using **Next.js** for better SEO and performance.
+- **React Suspense**: Used where necessary for optimized loading experiences.
+- **Responsive UI**: Designed to match the **Figma** specifications.
+- **Tailwind CSS**: Styled with **custom variables** as provided in the Figma design file.
+- **Movie Management**: Users can **create, update, and view movies** with:
+  - **Title (text)**
+  - **Publishing Year (number)**
+  - **Poster (image)**
+- **Form Validation**: Ensures correct input formats and displays API error messages.
+- **Pagination**: Implemented for movie listing.
+- **State Management**: Optimized for efficient data flow.
+- **Localization Support**: Added for multiple languages.
+- **API Documentation**: Provided for backend endpoints.
+- **Hosted on AWS**: Following best deployment practices.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Tech Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Frontend**: Next.js, React, Tailwind CSS
+- **Backend**: Next.js API routes, Supabase (PostgreSQL)
+- **Authentication**: Supabase Auth
+- **Storage**: Supabase Storage (for movie posters)
+- **Deployment**: AWS
 
-## Learn More
+## Installation & Setup
 
-To learn more about Next.js, take a look at the following resources:
+### Prerequisites
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Ensure you have the following installed:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Node.js (v16+)
+- npm or yarn
+- Supabase account with API keys
 
-## Deploy on Vercel
+### Steps to Run Locally
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/mask477/movie-app-task.git
+   cd movie-app
+   ```
+2. Install dependencies:
+   ```sh
+   npm install  # or yarn install
+   ```
+3. Create a `.env.local` file and add your **Supabase API keys**:
+   ```env
+   NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+   ```
+4. Start the development server:
+   ```sh
+   npm run dev  # or yarn dev
+   ```
+5. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Deployment
+
+The app is deployed on **AWS**. You can check out the live version at:
+🔗 [Live Demo](https://main.dk4qkhe4ajapp.amplifyapp.com/)
+
+## Design Reference
+
+The UI follows the **Figma design** provided:
+🔗 [Figma Link](https://www.figma.com/design/GtEDPLHyXSxRrOXMR44K8A/Full-Stack-Dev-Assignment?node-id=0-1&t=QE4S7261ven57Jqp-1)
+
+---
+
+### 🚀 Built with ❤️ by Mursal Khan
